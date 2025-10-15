@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
-from . import models, schemas, database
+from app import models, schemas, database
 import logging
 import sys
 import os

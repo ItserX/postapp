@@ -3,15 +3,17 @@ services:
     image: postgres:latest
     container_name: blog_db
     restart: always
+    env_file:
+      - .env
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: blogdb
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
-      - "5432:5432"
+      - "${DB_PORT}:5432"
 
   web:
     build: .
@@ -19,12 +21,12 @@ services:
     restart: always
     depends_on:
       - db
-    environment:
-      DATABASE_URL: postgresql://user:password@db:5432/blogdb
+    env_file:
+      - .env
     volumes:
       - ./logs:/logs
     ports:
-      - "8080:8080"
+      - "${APP_PORT}:${APP_PORT}"
 
 volumes:
   postgres_data:
