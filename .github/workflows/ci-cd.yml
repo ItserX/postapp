@@ -19,7 +19,16 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t postapp .
+          docker build -t postapp:latest .
+
+      - name: Save Docker image as artifact
+        run: docker save postapp:latest -o postapp.tar
+
+      - name: Upload Docker image artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: postapp-image
+          path: postapp.tar
 
   deploy:
     name: Deploy via SSH
@@ -30,6 +39,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Download Docker image artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: postapp-image
+          path: .
+
       - name: SSH Deploy
         uses: appleboy/ssh-action@v0.1.9
         with:
@@ -38,5 +53,6 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd postapp/
+            docker load -i postapp.tar
             docker-compose down
-            docker-compose up -d --build
+            docker-compose up -d
