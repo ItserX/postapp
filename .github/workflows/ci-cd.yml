@@ -19,7 +19,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t my-fastapi-app .
+          docker build -t postapp .
 
   deploy:
     name: Deploy via SSH
@@ -37,6 +37,6 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /path/to/your/project
+            cd /crudapp
             docker-compose down
             docker-compose up -d --build
