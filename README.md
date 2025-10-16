@@ -42,18 +42,19 @@
 ## Запуск локально
 1. Настроить переменные окружения(пример)
 ```bash
-DB_USER=postgres
-DB_PASSWORD=postgres
-DB_NAME=blog
+DB_USER=user
+DB_PASSWORD=password
+DB_NAME=blogdb
 DB_HOST=db
 DB_PORT=5432
-DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
+DATABASE_URL=postgresql://user:password@db:5432/blogdb
 
 APP_HOST=0.0.0.0
 APP_PORT=8080
 
-IMAGE_TAG=latest
 DOCKER_USERNAME=itserx
+IMAGE_TAG=latest
+
 ```
 
 2. Запустить через Docker Compose
@@ -122,6 +123,8 @@ SSH_KEY — приватный ключ для доступа к серверу
 DB_USER, DB_PASSWORD, DB_NAME, DB_HOST, DB_PORT — настройки БД
 
 APP_HOST, APP_PORT — адрес и порт приложения
+
+DOCKER_PASSWORD, DOCKER_USERNAME - данные от Docker Hub
 
 DOCKER_USERNAME, DOCKER_PASSWORD — данные для Docker Hub
 ```
