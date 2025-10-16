@@ -1,7 +1,7 @@
 services:
   db:
     image: postgres:latest
-    container_name: blog_db
+    container_name: post_db
     restart: always
     env_file:
       - .env
@@ -16,13 +16,16 @@ services:
       - "${DB_PORT}:5432"
 
   web:
-    build: .
-    container_name: blog_app
+    image: ${DOCKER_USERNAME}/postapp:latest
+    container_name: post_app
     restart: always
     depends_on:
       - db
     env_file:
       - .env
+    environment:
+      DATABASE_URL: postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
+      APP_PORT: ${APP_PORT}
     volumes:
       - ./logs:/logs
     ports:
