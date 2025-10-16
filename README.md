@@ -124,8 +124,6 @@ DB_USER, DB_PASSWORD, DB_NAME, DB_HOST, DB_PORT — настройки БД
 
 APP_HOST, APP_PORT — адрес и порт приложения
 
-DOCKER_PASSWORD, DOCKER_USERNAME - данные от Docker Hub
-
 DOCKER_USERNAME, DOCKER_PASSWORD — данные для Docker Hub
 ```
 
